@@ -1,0 +1,37 @@
+server:
+  port: 8099    #default port where the service will be started
+ 
+eureka:         #tells about the Eureka server details and its refresh time
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    healthcheck:
+      enabled: true
+    register-with-eureka: true
+    fetch-registry: true
+
+management: 
+  security: 
+    enabled: false   #disabled the spring security on the management endpoints like /env,/refresh etc.
+
+spring:    
+  application:
+    name: CustomerService   #current service name to be used by the eureka server
+  datasource:
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+    url: jdbc:h2:mem:testdb
+  h2:
+    console:
+      enabled: true
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+          
+logging:
+  level:
+    org.springframework.web: DEBUG
+    com.movie.app.MovieService: DEBUG
