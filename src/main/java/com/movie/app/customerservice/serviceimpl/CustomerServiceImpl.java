@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.movie.app.customerservice.model.CustomerDetails;
@@ -44,6 +45,17 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public CustomerDetails saveCustomerDetails(CustomerDetails customerDetails) {
 		return customerRepository.save(customerDetails);
+	}
+
+	@Override
+	public ResponseEntity<Object> updateCustomerDetails(CustomerDetails customerDetails, Integer custId) {
+		Optional<CustomerDetails> customerDetail=customerRepository.findById(custId);
+		if(!customerDetail.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
+		customerDetails.setCustId(custId);
+		customerRepository.save(customerDetails);
+		return ResponseEntity.ok(customerDetail);
 	}
 
 }
