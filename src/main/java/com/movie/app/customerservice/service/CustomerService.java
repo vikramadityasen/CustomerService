@@ -18,4 +18,6 @@ public interface CustomerService {
 
 	CustomerDetails getCustomerDetails(Integer custId);
 
+	CustomerDetails saveCustomerDetails(CustomerDetails customerDetails);
+
 }
